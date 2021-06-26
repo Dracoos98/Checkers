@@ -1,0 +1,1924 @@
+#include "pch.h"
+#include<iostream>
+#include<conio.h>
+#include<string.h>
+#define FILAS 26
+#define COLUMNAS 44
+//logo
+#define Fil 8
+#define Colum 36
+//upc
+#define Fil1 10
+#define Colum1 76
+//matrizmarcos
+#define Fil2 17
+#define Colum2 39
+using namespace std;
+using namespace System;
+//MENU
+void logo()
+{
+    int matrizlogo[Fil][Colum] = {
+        { 0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+        { 0,1,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+        { 0,1,0,0,0,1,1,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0 },
+        { 1,1,0,0,0,0,1,1,0,0,0,1,1,0,0,1,0,0,0,0,1,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0 },
+        { 1,1,0,0,0,0,1,1,0,0,0,1,1,0,0,1,0,0,0,0,1,0,1,1,1,1,1,1,0,1,0,0,0,0,0,0 },
+        { 1,1,0,0,0,1,1,0,0,0,0,1,1,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0 },
+        { 0,1,1,0,0,1,1,1,0,0,1,1,0,0,0,1,1,1,1,1,1,0,1,0,0,0,0,0,0,1,1,1,1,1,1,0 },
+        { 0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 } };
+
+    for (int fi = 0; fi < Fil; fi++)
+    {
+        for (int Co = 0; Co < Colum; Co++)
+        {
+            Console::SetCursorPosition(Co + 63, fi + 2); //X=c  Y=f
+            if (matrizlogo[fi][Co] == 1) Console::ForegroundColor = ConsoleColor(4);
+            if (matrizlogo[fi][Co] == 0) Console::ForegroundColor = ConsoleColor::Black;
+            cout << char(219);
+        }
+    }
+
+    int matrizdamas[Fil1][Colum1] = {
+        {1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0},
+        {1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0},
+        {1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+        {1,1,1,1,0,0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,0,0,0,0,1,1,1,1,1,0,1,1,1,0,1,1,1,0,0,1,1,1,0,1,1,1,0,1,1,1,1,1,0,0,0,0,1,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0},
+        {1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0},
+        {1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,1,1,1,0,0,0,1,1,1,1,0,0,0,1,1,1,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0},
+        {1,1,1,1,0,0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1},
+        {1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1},
+        {1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0},
+        {1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0} };
+
+    for (int fi1 = 0; fi1 < Fil1; fi1++)
+    {
+        for (int Co1 = 0; Co1 < Colum1; Co1++)
+        {
+            Console::SetCursorPosition(Co1 + 3, fi1 + 17); //X=c  Y=f
+            if (matrizdamas[fi1][Co1] == 1) Console::ForegroundColor = ConsoleColor::White;
+            if (matrizdamas[fi1][Co1] == 0) Console::ForegroundColor = ConsoleColor::Black;
+            cout << "#";
+        }
+    }
+
+}
+int matrizmarcos[Fil2][Colum2] = {
+    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1} };
+void marcos()
+{
+    for (int fi = 0; fi < Fil2; fi++)
+    {
+        for (int Co = 0; Co < Colum2; Co++)
+        {
+            Console::SetCursorPosition(Co + 107, fi + 14); //X=c  Y=f
+            if (matrizmarcos[fi][Co] == 1) Console::ForegroundColor = ConsoleColor(4);
+            if (matrizmarcos[fi][Co] == 0) Console::ForegroundColor = ConsoleColor::Black;
+            cout << char(220);
+        }
+    }
+    Console::ForegroundColor = ConsoleColor::White;
+    Console::SetCursorPosition(110, 16);
+    cout << "Presione 1 para jugar" << endl;
+    Console::SetCursorPosition(110, 20);
+    cout << "Presione 2 para las instrucciones" << endl;
+    Console::SetCursorPosition(110, 24);
+    cout << "Presione 3 para los creditos" << endl;
+    Console::SetCursorPosition(110, 28);
+    cout << "Presione 4 para salir" << endl;
+}
+//JUEGO
+void jugar()
+{
+    Console::ForegroundColor = ConsoleColor::White;
+    Console::SetCursorPosition(66, 3);
+    cout << "Bienvenido a su juego de damas: " << endl;
+    Console::ForegroundColor = ConsoleColor(4);
+    cout << "\t\t\t\t\t\t\t\t<================================>" << endl << endl;
+}
+void jugarV2(int* color)
+{
+    Console::ForegroundColor = ConsoleColor::White;
+    Console::SetCursorPosition(66, 3);
+    cout << "Bienvenido a su juego de damas: " << endl;
+    Console::ForegroundColor = ConsoleColor(*color);
+    cout << "\t\t\t\t\t\t\t\t<================================>" << endl << endl;
+}
+void Medidas()
+{
+    //medidas x
+    Console::SetCursorPosition(59, 6);
+    cout << "    1    2    3    4    5    6    7    8";
+    //medidas y
+    for (int i = 0; i < 9; i++)
+    {
+        for (int x = 0; (x / 3) < 8; x = x + 3)
+        {
+            Console::SetCursorPosition(57, 9 + x);
+            cout << char(65 + (x / 3));
+        }
+    }
+}
+void Marco(int* pintura, int* colorFj1, int* colorFj2, char* nom1, char* nom2)
+{
+    *colorFj1 = 7;
+    *colorFj2 = 0;
+    cout << "\n       " << char(254) << " Escoge el color del tablero:" << endl;
+    Console::ForegroundColor = ConsoleColor(1);
+    cout << "         (1 = Azul)" << endl;
+    Console::ForegroundColor = ConsoleColor(2);
+    cout << "         (2 = Verde)" << endl;
+    Console::ForegroundColor = ConsoleColor(3);
+    cout << "         (3 = Aguamarina)" << endl;
+    Console::ForegroundColor = ConsoleColor(4);
+    cout << "         (4 = Rojo)" << endl;
+    Console::ForegroundColor = ConsoleColor(5);
+    cout << "         (5 = Purpura)" << endl;
+    Console::ForegroundColor = ConsoleColor(6);
+    cout << "         (6 = Mostaza)" << endl;
+    Console::ForegroundColor = ConsoleColor(10);
+    cout << "         (7 = Verde Claro) " << endl;
+    Console::ForegroundColor = ConsoleColor(8);
+    cout << "         (8 = Plomo)" << endl;
+    Console::ForegroundColor = ConsoleColor(9);
+    cout << "         (9 = Azul Claro): " << endl;
+    do {
+        Console::ForegroundColor = ConsoleColor::White;
+        Console::SetCursorPosition(26, 25);
+        cout << "       ";
+        Console::SetCursorPosition(26, 25);
+        cin >> *pintura;
+    } while (*pintura < 1 || *pintura>9);
+    if (*pintura == 7)*pintura = 10;
+    //Marco
+    for (int i = 1; i <= 20; i++)
+    {
+        Console::ForegroundColor = ConsoleColor(*pintura);
+        for (int j = 1; j <= 2; j++)
+        {
+            Console::SetCursorPosition(0 + j, 6 + i); cout << "#";
+            Console::SetCursorPosition(43 + j, 6 + i); cout << "#";
+        }
+    }
+    for (int i = 1; i <= 1; i++)
+    {
+        Console::ForegroundColor = ConsoleColor(*pintura);
+        for (int j = 1; j <= 43; j++)
+        {
+            Console::SetCursorPosition(2 + j, 6 + i); cout << "#";
+            Console::SetCursorPosition(2 + j, 25 + i); cout << "#";
+            Console::SetCursorPosition(2 + j, 35 + i); cout << "#";
+        }
+    }
+
+}
+void Movimientos(char* nom1, char* nom2, int* pintura, int con1, int con2, int com1, int com2)
+{
+    for (int i = 1; i <= 1; i++)
+    {
+        Console::ForegroundColor = ConsoleColor(*pintura);
+        for (int j = 1; j <= 43; j++)
+        {
+            Console::SetCursorPosition(2 + j, 35 + i); cout << "#";
+        }
+    }
+    for (int i = 1; i <= 10; i++)
+    {
+        Console::ForegroundColor = ConsoleColor(*pintura);
+        for (int j = 1; j <= 2; j++)
+        {
+            Console::SetCursorPosition(21.5 + j, 26 + i); cout << "#";
+            Console::SetCursorPosition(0 + j, 26 + i); cout << "#";
+            Console::SetCursorPosition(43 + j, 26 + i); cout << "#";
+        }
+    }
+    Console::ForegroundColor = ConsoleColor::White;
+    Console::SetCursorPosition(5, 27); cout << "Nmr. Movimientos";
+    Console::SetCursorPosition(5, 29);
+    cout << nom1 << ": " << con1;
+    Console::SetCursorPosition(5, 32);
+    cout << nom2 << ": " << con2;
+    Console::SetCursorPosition(25, 27); cout << "Nmr.Fichas comidas";
+    Console::SetCursorPosition(25, 29);
+    cout << nom1 << ": " << com2;
+    Console::SetCursorPosition(25, 32);
+    cout << nom2 << ": " << com1;
+}
+void Ingresar_Nombres(char* nom1, char* nom2)
+{
+    Console::ForegroundColor = ConsoleColor::Gray;
+    cout << endl << endl << endl;
+    cout << "     Nombre del jugador 1: ";
+    cin >> nom1;
+    strupr(nom1);
+    cout << "     Nombre del jugador 2: ";
+    cin >> nom2;
+    strupr(nom2);
+}
+void Lanzar_Dados(int& J1, int& J2, char* nom1, char* nom2)
+{
+    cout << "\n     SE ESTAN LANZANDO LOS DADOS...";
+    _sleep(1200);
+    do {
+        Random dado1;
+        J1 = dado1.Next(1, 1000);
+        Random dado2;
+        J2 = dado2.Next(1, 1000);
+    } while (J1 == J2);
+    if (J1 > J2) cout << "\n     El turno es de " << nom1 << endl << endl;
+    else
+        cout << "\n\n     El turno es de " << nom2 << endl;
+}
+int matriz[FILAS][COLUMNAS] = {
+       {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3},
+       {3,3,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,3,3},
+       {3,3,1,4,4,4,1,0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,3,3},
+       {3,3,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,3,3},
+       {3,3,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,3,3},
+       {3,3,0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,1,4,4,4,1,3,3},
+       {3,3,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,3,3},
+       {3,3,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,3,3},
+       {3,3,1,4,4,4,1,0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,3,3},
+       {3,3,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,3,3},
+       {3,3,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,3,3},
+       {3,3,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,3,3},
+       {3,3,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,3,3},
+       {3,3,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,3,3},
+       {3,3,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,3,3},
+       {3,3,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,3,3},
+       {3,3,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,3,3},
+       {3,3,0,0,0,0,0,1,5,5,5,1,0,0,0,0,0,1,5,5,5,1,0,0,0,0,0,1,5,5,5,1,0,0,0,0,0,1,5,5,5,1,3,3},
+       {3,3,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,3,3},
+       {3,3,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,3,3},
+       {3,3,1,5,5,5,1,0,0,0,0,0,1,5,5,5,1,0,0,0,0,0,1,5,5,5,1,0,0,0,0,0,1,5,5,5,1,0,0,0,0,0,3,3},
+       {3,3,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,3,3},
+       {3,3,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,3,3},
+       {3,3,0,0,0,0,0,1,5,5,5,1,0,0,0,0,0,1,5,5,5,1,0,0,0,0,0,1,5,5,5,1,0,0,0,0,0,1,5,5,5,1,3,3},
+       {3,3,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,3,3},
+       {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3} };
+void ImprimeMatriz(int* color, int* colorfJ1, int* colorfJ2)
+{
+    //imprime matriz
+    for (int f = 0; f < FILAS; f++)
+    {
+        for (int c = 0; c < COLUMNAS; c++)
+        {
+            Console::SetCursorPosition(c + 59, f + 7); //X=c  Y=f
+            if (matriz[f][c] == 1) Console::ForegroundColor = ConsoleColor(*color);
+            if (matriz[f][c] == 0) Console::ForegroundColor = ConsoleColor::White;
+            if (matriz[f][c] == 3) Console::ForegroundColor = ConsoleColor::Gray;
+            if (matriz[f][c] == 4) Console::ForegroundColor = ConsoleColor(*colorfJ1);
+            if (matriz[f][c] == 5) Console::ForegroundColor = ConsoleColor(*colorfJ2);
+            cout << char(219);
+            if (matriz[f][c] == 6) {
+                Console::ForegroundColor = ConsoleColor::Red;
+                cout << char(178);
+            }
+            if (matriz[f][c] == 7) {
+                Console::ForegroundColor = ConsoleColor::Blue;
+                cout << char(178);
+            }
+
+        }
+    }
+}
+void Limpiar()
+{
+    Console::SetCursorPosition(109, 6);
+    cout << "                                                 \n ";
+    Console::SetCursorPosition(109, 7);
+    cout << "                                                 \n ";
+    Console::SetCursorPosition(109, 8);
+    cout << "                                                 \n ";
+    Console::SetCursorPosition(109, 9);
+    cout << "                                                 \n ";
+    Console::SetCursorPosition(109, 10);
+    cout << "                                                 \n ";
+    Console::SetCursorPosition(109, 11);
+    cout << "                                                 \n ";
+    Console::SetCursorPosition(109, 12);
+    cout << "                                                 \n ";
+    Console::SetCursorPosition(109, 13);
+    cout << "                                                 \n ";
+    Console::SetCursorPosition(109, 14);
+    cout << "                                                 \n ";
+    Console::SetCursorPosition(109, 15);
+    cout << "                                                 \n ";
+    Console::SetCursorPosition(109, 16);
+    cout << "                                                 \n ";
+
+}
+//ADICIONALES
+void instrucciones()
+{
+    cout << endl << endl << endl;
+    Console::ForegroundColor = ConsoleColor::White;
+    cout << "\t\t\t\t\t\t\t\t  Bienvenido a su juego de damas: " << endl;
+    Console::ForegroundColor = ConsoleColor(4);
+    cout << "\t\t\t\t\t\t\t\t<================================>" << endl << endl;
+    Console::ForegroundColor = ConsoleColor::White;
+    cout << "\tEstas son las reglas del juego" << endl << endl;
+    cout << "\t* El oponente con las piezas mas oscuras se mueve primero." << endl;
+    cout << "\t* Las piezas solo pueden moverse un espacio diagonal hacia adelante (hacia las piezas de sus oponentes) en el comienzo del juego." << endl;
+    cout << "\t* Las piezas deben permanecer en los cuadrados oscuros." << endl;
+    cout << "\t* Para capturar una pieza opuesta, salta sobre ella moviendo dos espacios diagonales en la direccion de la pieza opuesta." << endl;
+    cout << "\t* Una pieza puede saltar hacia adelante sobre las piezas de un oponente en varias partes del tablero para capturar ellos." << endl;
+    cout << "\t* Tenga en cuenta que el espacio en el otro lado de la pieza de su oponente debe estar vacio para que pueda capturarlo." << endl;
+    cout << "\t* Si tu pieza llega a la ultima fila del lado de tu oponente, puedes volver a tomar una de tus capturas" << endl;
+    cout << "\t y coronarla como Rey. El rey todavia se mueve un espacio a la vez, pero puede retroceder." << endl;
+    cout << "\t* Un jugador se queda sin piezas sobre el tablero, por lo tanto, ha perdido." << endl;
+    cout << "\t* La partida tambien puede finalizar en tablas si ambos jugadores quedan con un numero igual y muy reducido de fichas " << endl;
+    cout << "\t y por muchos movimientos que se hagan no se resolveria la partida." << endl << endl;
+
+
+    for (int fi = 0; fi < Fil2; fi++)
+    {
+        for (int Co = 0; Co < Colum2; Co++)
+        {
+            Console::SetCursorPosition(Co + 61, fi + 21); //X=c  Y=f
+            if (matrizmarcos[fi][Co] == 1) Console::ForegroundColor = ConsoleColor(4);
+            if (matrizmarcos[fi][Co] == 0) Console::ForegroundColor = ConsoleColor::Black;
+            cout << "#";
+        }
+    }
+    Console::ForegroundColor = ConsoleColor::White;
+    Console::SetCursorPosition(65, 23);
+    cout << "Presione 0 para ir al menu" << endl;
+    Console::SetCursorPosition(65, 27);
+    cout << "Presione 1 para jugar" << endl;
+    Console::SetCursorPosition(65, 31);
+    cout << "Presione 3 para los creditos" << endl;
+    Console::SetCursorPosition(65, 35);
+    cout << "Presione 4 para salir" << endl;
+}
+void creditos()
+{
+    cout << endl << endl << endl;
+    Console::ForegroundColor = ConsoleColor::White;
+    cout << "\t\t\t\t\t\t\t\t  Trabajo Final - Programacion I" << endl;
+    Console::ForegroundColor = ConsoleColor(4);
+    cout << "\t\t\t\t\t\t\t\t<================================>" << endl << endl;
+    Console::ForegroundColor = ConsoleColor::White;
+    cout << "\t\t\t\t\t\t\t\t            PROFESOR" << endl;
+    cout << "\t\t\t\t\t\t\t\t Edson Duilio Mendiolaza Cornejo" << endl << endl;
+    cout << "\t\t\t\t\t\t\t\t      INTEGRANTES DEL EQUIPO " << endl;
+    cout << "\t\t\t\t\t\t\t\t  Adrian Gino Jesus Arias Guillen" << endl;
+    cout << "\t\t\t\t\t\t\t\t   Jose Jaime Montoya del Pozo" << endl;
+    cout << "\t\t\t\t\t\t\t\t  Renzo Marcello Repetto Martini" << endl; cout << endl;
+
+    for (int fi = 0; fi < Fil2; fi++)
+    {
+        for (int Co = 0; Co < Colum2; Co++)
+        {
+            Console::SetCursorPosition(Co + 61, fi + 21); //X=c  Y=f
+            if (matrizmarcos[fi][Co] == 1) Console::ForegroundColor = ConsoleColor(4);
+            if (matrizmarcos[fi][Co] == 0) Console::ForegroundColor = ConsoleColor::Black;
+            cout << "#";
+        }
+    }
+    Console::ForegroundColor = ConsoleColor::White;
+    Console::SetCursorPosition(65, 23);
+    cout << "Presione 0 para ir al menu" << endl;
+    Console::SetCursorPosition(65, 27);
+    cout << "Presione 1 para jugar" << endl;
+    Console::SetCursorPosition(65, 31);
+    cout << "Presione 2 para las instrucciones" << endl;
+    Console::SetCursorPosition(65, 35);
+    cout << "Presione 4 para salir" << endl;
+
+}
+void salir()
+{
+    Console::ForegroundColor = ConsoleColor(4);
+    Console::SetCursorPosition(40, 15);
+    cout << "*********   *********  *********  *********  *********  *********  *********" << endl; _sleep(150);
+    cout << "\t\t\t\t\t***         ***   ***  ***   ***  ***           ***     ***   ***  *********" << endl; _sleep(150);
+    cout << "\t\t\t\t\t***         ***   ***  ***   ***  ***           ***     ***   ***  ***" << endl; _sleep(150);
+    cout << "\t\t\t\t\t***         ***   **   *********  ***           ***     *********  *********" << endl; _sleep(150);
+    cout << "\t\t\t\t\t*** *****   *******    *********  ***           ***     *********  *********" << endl; _sleep(150);
+    cout << "\t\t\t\t\t***   ***   ***  ***   ***   ***  ***           ***     ***   ***        ***" << endl; _sleep(150);
+    cout << "\t\t\t\t\t*********   ***   ***  ***   ***  *********  *********  ***   ***  *********" << endl; _sleep(150);
+    _sleep(1300);
+    exit(0);
+}
+
+
+int main()
+{
+    Console::SetWindowSize(157, 42);
+    //Console::CursorVisible = false;
+
+    //declara variables
+    int tecla;
+    char* nombreJ1 = new char[20];
+    char* nombreJ2 = new char[20];
+    int puntajeJ1, puntajeJ2;
+    int tablero;
+    int contadorfJ1 = 0, contadorfJ2 = 0;
+    int comidasfJ1 = 0, comidasfJ2 = 0;
+    //llamado de funcion
+    logo();
+    marcos();
+
+    //orden
+
+    for (int i = 1; true; i++)
+    {
+        while (true)
+        {
+            if (kbhit())
+            {
+                char tecla = toupper(getch());
+                if (tecla == 48)//MENU 0
+                {
+                    Console::Clear();
+                    logo();
+                    marcos();
+                    break;
+                }
+                if (tecla == 49)//JUGAR 1
+                {
+                    Console::Clear();
+                    jugar();
+                    Ingresar_Nombres(nombreJ1, nombreJ2);
+                    Lanzar_Dados(puntajeJ1, puntajeJ2, nombreJ1, nombreJ2);
+                    int* color;
+                    color = new int;
+                    int* colorfJ1, * colorfJ2;
+                    colorfJ1 = new int; colorfJ2 = new int;
+
+                    //Llamado de funciones                   
+                    Marco(color, colorfJ1, colorfJ2, nombreJ1, nombreJ2);
+                    Medidas();
+                    jugarV2(color);
+                    for (int turno = 1; turno < 4;)
+                    {
+                        if (turno == 3) turno -= 2;
+                        Limpiar();
+                        ImprimeMatriz(color, colorfJ1, colorfJ2);
+                        Movimientos(nombreJ1, nombreJ2, color, contadorfJ1, contadorfJ2, comidasfJ1, comidasfJ2);
+                        char V1, VX1;
+                        int  VX2;
+                        int  V2;
+                        while (true)
+                        {
+                            Console::ForegroundColor = ConsoleColor(*color);
+                            Console::SetCursorPosition(110, 6);
+                            if (turno == 1 && puntajeJ1 > puntajeJ2) {
+                                cout << "Turno de " << nombreJ1 << " (FICHAS BLANCAS)";
+                                contadorfJ1++;
+                            }
+                            if (turno == 1 && puntajeJ2 > puntajeJ1)
+                            {
+                                cout << "Turno de " << nombreJ2 << " (FICHAS BLANCAS)";
+                                contadorfJ2++;
+                            }
+                            if (turno == 2 && puntajeJ2 > puntajeJ1)
+                            {
+                                cout << "Turno de " << nombreJ1 << " (FICHAS NEGRAS)";
+                                contadorfJ1++;
+                            }
+                            if (turno == 2 && puntajeJ1 > puntajeJ2)
+                            {
+                                cout << "Turno de " << nombreJ2 << " (FICHAS NEGRAS)";
+                                contadorfJ2++;
+                            }
+                            Console::ForegroundColor = ConsoleColor::White;
+                            Console::SetCursorPosition(110, 7);
+                            cout << char(254) << " Ingrese la fila [A-H] de la ficha ";
+                            Console::SetCursorPosition(110, 8);
+                            cout << "  que va a mover: "; cin >> V1; V1 = toupper(V1);
+                            Console::SetCursorPosition(110, 9);
+                            cout << char(254) << " Ingrese la columna [1-8] de la ficha";
+                            Console::SetCursorPosition(110, 10);
+                            cout << "  que va a mover: "; cin >> V2;
+                            Console::SetCursorPosition(110, 11);
+                            cout << char(254) << " Ingrese la fila[A - H] del tablero donde";
+                            Console::SetCursorPosition(110, 12);
+                            cout << "  se va a mover la ficha: ";
+
+                            for (int i = 0; i < 1;)
+                            {
+                                cin >> VX1; VX1 = toupper(VX1);
+                                if ((turno == 1 && VX1 == V1 + 1) || VX1 == 88) break;
+                                else if ((turno == 2 && VX1 == V1 - 1) || VX1 == 88) break;
+                                else
+                                {
+                                    Console::SetCursorPosition(136, 12);
+                                    cout << "   ";
+                                    Console::SetCursorPosition(136, 12);
+                                }
+                            }
+                            if (VX1 == 88)
+                            {
+                                Console::SetCursorPosition(136, 12);
+                                cout << "   ";
+                                Console::SetCursorPosition(110, 13);
+                                Console::ForegroundColor = ConsoleColor::Red;
+                                cout << "Reinserte las casillas :)";
+                                _sleep(1500);
+                                Limpiar();
+                                if (turno == 1 && puntajeJ1 > puntajeJ2) {
+                                    contadorfJ1--;
+                                }
+                                if (turno == 1 && puntajeJ2 > puntajeJ1)
+                                {
+                                    contadorfJ2--;
+                                }
+                                if (turno == 2 && puntajeJ2 > puntajeJ1)
+                                {
+                                    contadorfJ1--;
+                                }
+                                if (turno == 2 && puntajeJ1 > puntajeJ2)
+                                {
+                                    contadorfJ2--;
+                                }
+                                turno--; break;
+                            }
+                            Console::SetCursorPosition(110, 13);
+                            cout << char(254) << " Ingrese la columna[1-8] del tablero donde";
+                            Console::SetCursorPosition(110, 14);
+                            cout << "  se va a mover la ficha: ";
+                            for (int i = 0; i < 1;)
+                            {
+                                cin >> VX2;
+                                if (VX2 == V2 + 1 || VX2 == V2 - 1) break;
+                                else
+                                {
+                                    Console::SetCursorPosition(136, 14);
+                                    cout << "   ";
+                                    Console::SetCursorPosition(136, 14);
+                                }
+                            }
+
+                            //Convertidor a cordenadas
+                            int AX, AXL;
+                            //A1
+                            if (V1 == 65 && V2 == 1)
+                            {
+                                AX = 2;
+                                AXL = 4;
+                            }
+                            //A3
+                            else if (V1 == 65 && V2 == 3)
+                            {
+                                AX = 2;
+                                AXL = 14;
+                            }
+                            //A5
+                            else if (V1 == 65 && V2 == 5)
+                            {
+                                AX = 2;
+                                AXL = 24;
+                            }
+                            //A7
+                            else if (V1 == 65 && V2 == 7)
+                            {
+                                AX = 2;
+                                AXL = 34;
+                            }
+                            //B2
+                            else if (V1 == 66 && V2 == 2)
+                            {
+                                AX = 5;
+                                AXL = 9;
+                            }
+                            //B4
+                            else if (V1 == 66 && V2 == 4)
+                            {
+                                AX = 5;
+                                AXL = 19;
+                            }
+                            //B6
+                            else if (V1 == 66 && V2 == 6)
+                            {
+                                AX = 5;
+                                AXL = 29;
+                            }
+                            //B8
+                            else if (V1 == 66 && V2 == 8)
+                            {
+                                AX = 5;
+                                AXL = 39;
+                            }
+                            //C1
+                            else if (V1 == 67 && V2 == 1)
+                            {
+                                AX = 8;
+                                AXL = 4;
+                            }
+                            //C3
+                            else if (V1 == 67 && V2 == 3)
+                            {
+                                AX = 8;
+                                AXL = 14;
+                            }
+                            //C5
+                            else if (V1 == 67 && V2 == 5)
+                            {
+                                AX = 8;
+                                AXL = 24;
+                            }
+                            //C7
+                            else if (V1 == 67 && V2 == 7)
+                            {
+                                AX = 8;
+                                AXL = 34;
+                            }
+                            //D2
+                            else if (V1 == 68 && V2 == 2)
+                            {
+                                AX = 11;
+                                AXL = 9;
+                            }
+                            //D4
+                            else if (V1 == 68 && V2 == 4)
+                            {
+                                AX = 11;
+                                AXL = 19;
+                            }
+                            //D6
+                            else if (V1 == 68 && V2 == 6)
+                            {
+                                AX = 11;
+                                AXL = 29;
+                            }
+                            //D8
+                            else if (V1 == 68 && V2 == 8)
+                            {
+                                AX = 11;
+                                AXL = 39;
+                            }
+                            //E1
+                            else if (V1 == 69 && V2 == 1)
+                            {
+                                AX = 14;
+                                AXL = 4;
+                            }
+                            //E3
+                            else if (V1 == 69 && V2 == 3)
+                            {
+                                AX = 14;
+                                AXL = 14;
+                            }
+                            //E5
+                            else if (V1 == 69 && V2 == 5)
+                            {
+                                AX = 14;
+                                AXL = 24;
+                            }
+                            //E7
+                            else if (V1 == 69 && V2 == 7)
+                            {
+                                AX = 14;
+                                AXL = 34;
+                            }
+                            //F2
+                            else if (V1 == 70 && V2 == 2)
+                            {
+                                AX = 17;
+                                AXL = 9;
+                            }
+                            //F4
+                            else if (V1 == 70 && V2 == 4)
+                            {
+                                AX = 17;
+                                AXL = 19;
+                            }
+                            //F6
+                            else if (V1 == 70 && V2 == 6)
+                            {
+                                AX = 17;
+                                AXL = 29;
+                            }
+                            //F8
+                            else if (V1 == 70 && V2 == 8)
+                            {
+                                AX = 17;
+                                AXL = 39;
+                            }
+                            //G1
+                            else if (V1 == 71 && V2 == 1)
+                            {
+                                AX = 20;
+                                AXL = 4;
+                            }
+                            //G3
+                            else if (V1 == 71 && V2 == 3)
+                            {
+                                AX = 20;
+                                AXL = 14;
+                            }
+                            //G5
+                            else if (V1 == 71 && V2 == 5)
+                            {
+                                AX = 20;
+                                AXL = 24;
+                            }
+                            //G7
+                            else if (V1 == 71 && V2 == 7)
+                            {
+                                AX = 20;
+                                AXL = 34;
+                            }
+                            //H2
+                            else if (V1 == 72 && V2 == 2)
+                            {
+                                AX = 23;
+                                AXL = 9;
+                            }
+                            //H4
+                            else if (V1 == 72 && V2 == 4)
+                            {
+                                AX = 23;
+                                AXL = 19;
+                            }
+                            //H6
+                            else if (V1 == 72 && V2 == 6)
+                            {
+                                AX = 23;
+                                AXL = 29;
+                            }
+                            //H8
+                            else if (V1 == 72 && V2 == 8)
+                            {
+
+                                AX = 23;
+                                AXL = 39;
+                            }
+                            //ERROR
+                            else
+                            {
+                                Console::SetCursorPosition(136, 14);
+                                cout << "   ";
+                                Console::SetCursorPosition(136, 14);
+                                Console::ForegroundColor = ConsoleColor::Red;
+                                cout << "Casilla Invalida";
+                                _sleep(1500);
+                                Limpiar();
+                                if (turno == 1 && puntajeJ1 > puntajeJ2) {
+                                    contadorfJ1--;
+                                }
+                                if (turno == 1 && puntajeJ2 > puntajeJ1)
+                                {
+                                    contadorfJ2--;
+                                }
+                                if (turno == 2 && puntajeJ2 > puntajeJ1)
+                                {
+                                    contadorfJ1--;
+                                }
+                                if (turno == 2 && puntajeJ1 > puntajeJ2)
+                                {
+                                    contadorfJ2--;
+                                }
+                                turno--; break;
+                            }
+                            int AX1, AXL1;
+                            //A1
+                            if (VX1 == 65 && VX2 == 1)
+                            {
+                                AX1 = 2;
+                                AXL1 = 4;
+                            }
+                            //A3
+                            else if (VX1 == 65 && VX2 == 3)
+                            {
+                                AX1 = 2;
+                                AXL1 = 14;
+                            }
+                            //A5
+                            else if (VX1 == 65 && VX2 == 5)
+                            {
+                                AX1 = 2;
+                                AXL1 = 24;
+                            }
+                            //A7
+                            else if (VX1 == 65 && VX2 == 7)
+                            {
+                                AX1 = 2;
+                                AXL1 = 34;
+                            }
+                            //B2
+                            else if (VX1 == 66 && VX2 == 2)
+                            {
+                                AX1 = 5;
+                                AXL1 = 9;
+                            }
+                            //B4
+                            else if (VX1 == 66 && VX2 == 4)
+                            {
+                                AX1 = 5;
+                                AXL1 = 19;
+                            }
+                            //B6
+                            else if (VX1 == 66 && VX2 == 6)
+                            {
+                                AX1 = 5;
+                                AXL1 = 29;
+                            }
+                            //B8
+                            else if (VX1 == 66 && VX2 == 8)
+                            {
+                                AX1 = 5;
+                                AXL1 = 39;
+                            }
+                            //C1
+                            else if (VX1 == 67 && VX2 == 1)
+                            {
+                                AX1 = 8;
+                                AXL1 = 4;
+                            }
+                            //C3
+                            else if (VX1 == 67 && VX2 == 3)
+                            {
+                                AX1 = 8;
+                                AXL1 = 14;
+                            }
+                            //C5
+                            else if (VX1 == 67 && VX2 == 5)
+                            {
+                                AX1 = 8;
+                                AXL1 = 24;
+                            }
+                            //C7
+                            else if (VX1 == 67 && VX2 == 7)
+                            {
+                                AX1 = 8;
+                                AXL1 = 34;
+                            }
+                            //D2
+                            else if (VX1 == 68 && VX2 == 2)
+                            {
+                                AX1 = 11;
+                                AXL1 = 9;
+                            }
+                            //D4
+                            else if (VX1 == 68 && VX2 == 4)
+                            {
+                                AX1 = 11;
+                                AXL1 = 19;
+                            }
+                            //D6
+                            else if (VX1 == 68 && VX2 == 6)
+                            {
+                                AX1 = 11;
+                                AXL1 = 29;
+                            }
+                            //D8
+                            else if (VX1 == 68 && VX2 == 8)
+                            {
+                                AX1 = 11;
+                                AXL1 = 39;
+                            }
+                            //E1
+                            else if (VX1 == 69 && VX2 == 1)
+                            {
+                                AX1 = 14;
+                                AXL1 = 4;
+                            }
+                            //E3
+                            else if (VX1 == 69 && VX2 == 3)
+                            {
+                                AX1 = 14;
+                                AXL1 = 14;
+                            }
+                            //E5
+                            else if (VX1 == 69 && VX2 == 5)
+                            {
+                                AX1 = 14;
+                                AXL1 = 24;
+                            }
+                            //E7
+                            else if (VX1 == 69 && VX2 == 7)
+                            {
+                                AX1 = 14;
+                                AXL1 = 34;
+                            }
+                            //F2
+                            else if (VX1 == 70 && VX2 == 2)
+                            {
+                                AX1 = 17;
+                                AXL1 = 9;
+                            }
+                            //F4
+                            else if (VX1 == 70 && VX2 == 4)
+                            {
+                                AX1 = 17;
+                                AXL1 = 19;
+                            }
+                            //F6
+                            else if (VX1 == 70 && VX2 == 6)
+                            {
+                                AX1 = 17;
+                                AXL1 = 29;
+                            }
+                            //F8
+                            else if (VX1 == 70 && VX2 == 8)
+                            {
+                                AX1 = 17;
+                                AXL1 = 39;
+                            }
+                            //G1
+                            else if (VX1 == 71 && VX2 == 1)
+                            {
+                                AX1 = 20;
+                                AXL1 = 4;
+                            }
+                            //G3
+                            else if (VX1 == 71 && VX2 == 3)
+                            {
+                                AX1 = 20;
+                                AXL1 = 14;
+                            }
+                            //G5
+                            else if (VX1 == 71 && VX2 == 5)
+                            {
+                                AX1 = 20;
+                                AXL1 = 24;
+                            }
+                            //G7
+                            else if (VX1 == 71 && VX2 == 7)
+                            {
+                                AX1 = 20;
+                                AXL1 = 34;
+                            }
+                            //H2
+                            else if (VX1 == 72 && VX2 == 2)
+                            {
+                                AX1 = 23;
+                                AXL1 = 9;
+                            }
+                            //H4
+                            else if (VX1 == 72 && VX2 == 4)
+                            {
+                                AX1 = 23;
+                                AXL1 = 19;
+                            }
+                            //H6
+                            else if (VX1 == 72 && VX2 == 6)
+                            {
+                                AX1 = 23;
+                                AXL1 = 29;
+                            }
+                            //H8
+                            else if (VX1 == 72 && VX2 == 8)
+                            {
+
+                                AX1 = 23;
+                                AXL1 = 39;
+                            }
+                            //ERROR
+                            else
+                            {
+                                Console::SetCursorPosition(136, 14);
+                                cout << "   ";
+                                Console::SetCursorPosition(136, 14);
+                                Console::ForegroundColor = ConsoleColor::Red;
+                                cout << "Casilla Invalida";
+                                _sleep(1500);
+                                Limpiar();
+                                if (turno == 1 && puntajeJ1 > puntajeJ2) {
+                                    contadorfJ1--;
+                                }
+                                if (turno == 1 && puntajeJ2 > puntajeJ1)
+                                {
+                                    contadorfJ2--;
+                                }
+                                if (turno == 2 && puntajeJ2 > puntajeJ1)
+                                {
+                                    contadorfJ1--;
+                                }
+                                if (turno == 2 && puntajeJ1 > puntajeJ2)
+                                {
+                                    contadorfJ2--;
+                                }
+                                turno--; break;
+                            }//Movimientos fichas balncas 
+                            if (turno == 1 && matriz[AX][AXL] == 4 && matriz[AX1][AXL1] == 1)
+                            {
+                                int c = AXL + 1;
+                                int d = AXL - 1;
+                                matriz[AX][AXL] = 1;
+                                matriz[AX][c] = 1;
+                                matriz[AX][d] = 1;
+
+                                if (VX1 == 72 && VX2 == 2)
+                                {
+                                    int C1 = AXL1 + 1;
+                                    int D1 = AXL1 - 1;
+                                    matriz[AX1][AXL1] = 6;
+                                    matriz[AX1][C1] = 6;
+                                    matriz[AX1][D1] = 6;
+                                }
+                                else if (VX1 == 72 && VX2 == 4)
+                                {
+                                    int C1 = AXL1 + 1;
+                                    int D1 = AXL1 - 1;
+                                    matriz[AX1][AXL1] = 6;
+                                    matriz[AX1][C1] = 6;
+                                    matriz[AX1][D1] = 6;
+                                }
+                                else if (VX1 == 72 && VX2 == 6)
+                                {
+                                    int C1 = AXL1 + 1;
+                                    int D1 = AXL1 - 1;
+                                    matriz[AX1][AXL1] = 6;
+                                    matriz[AX1][C1] = 6;
+                                    matriz[AX1][D1] = 6;
+                                }
+                                else if (VX1 == 72 && VX2 == 8)
+                                {
+                                    int C1 = AXL1 + 1;
+                                    int D1 = AXL1 - 1;
+                                    matriz[AX1][AXL1] = 6;
+                                    matriz[AX1][C1] = 6;
+                                    matriz[AX1][D1] = 6;
+                                }
+                                else
+                                {
+                                    int C1 = AXL1 + 1;
+                                    int D1 = AXL1 - 1;
+                                    matriz[AX1][AXL1] = 4;
+                                    matriz[AX1][C1] = 4;
+                                    matriz[AX1][D1] = 4;
+                                }
+
+                                break;
+                            }
+                            //Movimiento fichas negras
+                            else if (turno == 2 && matriz[AX][AXL] == 5 && matriz[AX1][AXL1] == 1)
+                            {
+                                int c = AXL + 1;
+                                int d = AXL - 1;
+                                matriz[AX][AXL] = 1;
+                                matriz[AX][c] = 1;
+                                matriz[AX][d] = 1;
+                                if (VX1 == 65 && VX2 == 1)
+                                {
+                                    int C1 = AXL1 + 1;
+                                    int D1 = AXL1 - 1;
+                                    matriz[AX1][AXL1] = 7;
+                                    matriz[AX1][C1] = 7;
+                                    matriz[AX1][D1] = 7;
+                                }
+                                else if (VX1 == 65 && VX2 == 3)
+                                {
+                                    int C1 = AXL1 + 1;
+                                    int D1 = AXL1 - 1;
+                                    matriz[AX1][AXL1] = 7;
+                                    matriz[AX1][C1] = 7;
+                                    matriz[AX1][D1] = 7;
+                                }
+                                else if (VX1 == 65 && VX2 == 5)
+                                {
+                                    int C1 = AXL1 + 1;
+                                    int D1 = AXL1 - 1;
+                                    matriz[AX1][AXL1] = 7;
+                                    matriz[AX1][C1] = 7;
+                                    matriz[AX1][D1] = 7;
+                                }
+                                else if (VX1 == 65 && VX2 == 7)
+                                {
+                                    int C1 = AXL1 + 1;
+                                    int D1 = AXL1 - 1;
+                                    matriz[AX1][AXL1] = 7;
+                                    matriz[AX1][C1] = 7;
+                                    matriz[AX1][D1] = 7;
+                                }
+                                else
+                                {
+                                    int C1 = AXL1 + 1;
+                                    int D1 = AXL1 - 1;
+                                    matriz[AX1][AXL1] = 5;
+                                    matriz[AX1][C1] = 5;
+                                    matriz[AX1][D1] = 5;
+                                }
+                                break;
+                            }
+                            //Comer fichas
+                            else if (turno == 1 && matriz[AX][AXL] == 4 && matriz[AX1][AXL1] == 5 && matriz[AX1 + 3][AXL1 - 5] == 1 && AXL > AXL1)
+                            {
+                                comidasfJ1++;
+                                if (AXL1 - 5 < 0 || AXL1 + 5 > 43)
+                                {
+                                    Console::SetCursorPosition(136, 14);
+                                    cout << "   ";
+                                    Console::SetCursorPosition(136, 14);
+                                    Console::ForegroundColor = ConsoleColor::Red;
+                                    cout << "Casilla Invalida";
+                                    _sleep(1500);
+                                    Limpiar();
+                                    if (turno == 1 && puntajeJ1 > puntajeJ2) {
+                                        contadorfJ1--;
+                                    }
+                                    if (turno == 1 && puntajeJ2 > puntajeJ1)
+                                    {
+                                        contadorfJ2--;
+                                    }
+                                    if (turno == 2 && puntajeJ2 > puntajeJ1)
+                                    {
+                                        contadorfJ1--;
+                                    }
+                                    if (turno == 2 && puntajeJ1 > puntajeJ2)
+                                    {
+                                        contadorfJ2--;
+                                    }
+                                }
+                                else if (AXL1 - AXL == 5)
+                                {
+                                    int c = AXL + 1;
+                                    int d = AXL - 1;
+                                    matriz[AX][AXL] = 1;
+                                    matriz[AX][c] = 1;
+                                    matriz[AX][d] = 1;
+                                    if (VX1 == 72 && VX2 == 2)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 + 5] = 6;
+                                        matriz[AX1 + 3][C1 + 5] = 6;
+                                        matriz[AX1 + 3][D1 + 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 2)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 + 5] = 6;
+                                        matriz[AX1 + 3][C1 + 5] = 6;
+                                        matriz[AX1 + 3][D1 + 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 4)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 + 5] = 6;
+                                        matriz[AX1 + 3][C1 + 5] = 6;
+                                        matriz[AX1 + 3][D1 + 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 6)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 + 5] = 6;
+                                        matriz[AX1 + 3][C1 + 5] = 6;
+                                        matriz[AX1 + 3][D1 + 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 8)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 + 5] = 6;
+                                        matriz[AX1 + 3][C1 + 5] = 6;
+                                        matriz[AX1 + 3][D1 + 5] = 6;
+                                    }
+                                    else {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 + 5] = 4;
+                                        matriz[AX1 + 3][C1 + 5] = 4;
+                                        matriz[AX1 + 3][D1 + 5] = 4;
+                                    }
+                                    break;
+                                }
+                                else if (AXL1 - AXL == -5)
+                                {
+                                    int c = AXL + 1;
+                                    int d = AXL - 1;
+                                    matriz[AX][AXL] = 1;
+                                    matriz[AX][c] = 1;
+                                    matriz[AX][d] = 1;
+                                    if (VX1 == 72 && VX2 == 2)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 - 5] = 6;
+                                        matriz[AX1 + 3][C1 - 5] = 6;
+                                        matriz[AX1 + 3][D1 - 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 2)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 - 5] = 6;
+                                        matriz[AX1 + 3][C1 - 5] = 6;
+                                        matriz[AX1 + 3][D1 - 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 4)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 - 5] = 6;
+                                        matriz[AX1 + 3][C1 - 5] = 6;
+                                        matriz[AX1 + 3][D1 - 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 6)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 - 5] = 6;
+                                        matriz[AX1 + 3][C1 - 5] = 6;
+                                        matriz[AX1 + 3][D1 - 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 8)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 - 5] = 6;
+                                        matriz[AX1 + 3][C1 - 5] = 6;
+                                        matriz[AX1 + 3][D1 - 5] = 6;
+                                    }
+                                    else {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 - 5] = 4;
+                                        matriz[AX1 + 3][C1 - 5] = 4;
+                                        matriz[AX1 + 3][D1 - 5] = 4;
+                                    }
+                                    break;
+                                }
+                            }
+                            else if (turno == 1 && matriz[AX][AXL] == 4 && matriz[AX1][AXL1] == 5 && matriz[AX1 + 3][AXL1 + 5] == 1 && AXL < AXL1)
+                            {
+                                comidasfJ1++;
+                                if (AXL1 - 5 < 0 || AXL1 + 5 > 43)
+                                {
+                                    Console::SetCursorPosition(136, 14);
+                                    cout << "   ";
+                                    Console::SetCursorPosition(136, 14);
+                                    Console::ForegroundColor = ConsoleColor::Red;
+                                    cout << "Casilla Invalida";
+                                    _sleep(1500);
+                                    Limpiar();
+                                    if (turno == 1 && puntajeJ1 > puntajeJ2) {
+                                        contadorfJ1--;
+                                    }
+                                    if (turno == 1 && puntajeJ2 > puntajeJ1)
+                                    {
+                                        contadorfJ2--;
+                                    }
+                                    if (turno == 2 && puntajeJ2 > puntajeJ1)
+                                    {
+                                        contadorfJ1--;
+                                    }
+                                    if (turno == 2 && puntajeJ1 > puntajeJ2)
+                                    {
+                                        contadorfJ2--;
+                                    }
+                                }
+
+                                else if (AXL1 - AXL == 5)
+                                {
+                                    int c = AXL + 1;
+                                    int d = AXL - 1;
+                                    matriz[AX][AXL] = 1;
+                                    matriz[AX][c] = 1;
+                                    matriz[AX][d] = 1;
+                                    if (VX1 == 72 && VX2 == 2)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 + 5] = 6;
+                                        matriz[AX1 + 3][C1 + 5] = 6;
+                                        matriz[AX1 + 3][D1 + 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 2)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 + 5] = 6;
+                                        matriz[AX1 + 3][C1 + 5] = 6;
+                                        matriz[AX1 + 3][D1 + 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 4)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 + 5] = 6;
+                                        matriz[AX1 + 3][C1 + 5] = 6;
+                                        matriz[AX1 + 3][D1 + 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 6)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 + 5] = 6;
+                                        matriz[AX1 + 3][C1 + 5] = 6;
+                                        matriz[AX1 + 3][D1 + 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 8)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 + 5] = 6;
+                                        matriz[AX1 + 3][C1 + 5] = 6;
+                                        matriz[AX1 + 3][D1 + 5] = 6;
+                                    }
+
+                                    else
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 + 5] = 4;
+                                        matriz[AX1 + 3][C1 + 5] = 4;
+                                        matriz[AX1 + 3][D1 + 5] = 4;
+                                    }
+
+                                    break;
+                                }
+                                else if (AXL1 - AXL == -5)
+                                {
+                                    int c = AXL + 1;
+                                    int d = AXL - 1;
+                                    matriz[AX][AXL] = 1;
+                                    matriz[AX][c] = 1;
+                                    matriz[AX][d] = 1;
+                                    if (VX1 == 72 && VX2 == 2)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 - 5] = 6;
+                                        matriz[AX1 + 3][C1 - 5] = 6;
+                                        matriz[AX1 + 3][D1 - 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 2)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 - 5] = 6;
+                                        matriz[AX1 + 3][C1 - 5] = 6;
+                                        matriz[AX1 + 3][D1 - 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 4)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 - 5] = 6;
+                                        matriz[AX1 + 3][C1 - 5] = 6;
+                                        matriz[AX1 + 3][D1 - 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 6)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 - 5] = 6;
+                                        matriz[AX1 + 3][C1 - 5] = 6;
+                                        matriz[AX1 + 3][D1 - 5] = 6;
+                                    }
+                                    else if (VX1 == 72 && VX2 == 8)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 - 5] = 6;
+                                        matriz[AX1 + 3][C1 - 5] = 6;
+                                        matriz[AX1 + 3][D1 - 5] = 6;
+                                    }
+                                    else
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 + 3][AXL1 - 5] = 4;
+                                        matriz[AX1 + 3][C1 - 5] = 4;
+                                        matriz[AX1 + 3][D1 - 5] = 4;
+
+                                    }
+                                    break;
+                                }
+                            }
+                            else if (turno == 2 && matriz[AX][AXL] == 5 && matriz[AX1][AXL1] == 4 && matriz[AX1 - 3][AXL1 - 5] == 1 && AXL > AXL1)
+                            {
+                                comidasfJ2++;
+                                if (AXL1 - 5 < 0 || AXL1 + 5 > 43)
+                                {
+                                    Console::SetCursorPosition(136, 14);
+                                    cout << "   ";
+                                    Console::SetCursorPosition(136, 14);
+                                    Console::ForegroundColor = ConsoleColor::Red;
+                                    cout << "Casilla Invalida";
+                                    _sleep(1500);
+                                    Limpiar();
+                                    if (turno == 1 && puntajeJ1 > puntajeJ2) {
+                                        contadorfJ1--;
+                                    }
+                                    if (turno == 1 && puntajeJ2 > puntajeJ1)
+                                    {
+                                        contadorfJ2--;
+                                    }
+                                    if (turno == 2 && puntajeJ2 > puntajeJ1)
+                                    {
+                                        contadorfJ1--;
+                                    }
+                                    if (turno == 2 && puntajeJ1 > puntajeJ2)
+                                    {
+                                        contadorfJ2--;
+                                    }
+                                }
+
+                                else if (AXL1 - AXL == 5)
+                                {
+
+                                    int c = AXL + 1;
+                                    int d = AXL - 1;
+                                    matriz[AX][AXL] = 1;
+                                    matriz[AX][c] = 1;
+                                    matriz[AX][d] = 1;
+
+                                    if (VX1 == 65 && VX2 == 1)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+                                        matriz[AX1 - 3][AXL1 + 5] = 7;
+                                        matriz[AX1 - 3][C1 + 5] = 7;
+                                        matriz[AX1 - 3][D1 + 5] = 7;
+                                    }
+                                    else if (VX1 == 65 && VX2 == 3)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+                                        matriz[AX1 - 3][AXL1 + 5] = 7;
+                                        matriz[AX1 - 3][C1 + 5] = 7;
+                                        matriz[AX1 - 3][D1 + 5] = 7;
+                                    }
+                                    else if (VX1 == 65 && VX2 == 5)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+                                        matriz[AX1 - 3][AXL1 + 5] = 7;
+                                        matriz[AX1 - 3][C1 + 5] = 7;
+                                        matriz[AX1 - 3][D1 + 5] = 7;
+                                    }
+                                    else if (VX1 == 65 && VX2 == 7)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+                                        matriz[AX1 - 3][AXL1 + 5] = 7;
+                                        matriz[AX1 - 3][C1 + 5] = 7;
+                                        matriz[AX1 - 3][D1 + 5] = 7;
+                                    }
+                                    else {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+                                        matriz[AX1 - 3][AXL1 + 5] = 5;
+                                        matriz[AX1 - 3][C1 + 5] = 5;
+                                        matriz[AX1 - 3][D1 + 5] = 5;
+                                    }
+                                    break;
+                                }
+                                else if (AXL1 - AXL == -5)
+                                {
+                                    int c = AXL + 1;
+                                    int d = AXL - 1;
+                                    matriz[AX][AXL] = 1;
+                                    matriz[AX][c] = 1;
+                                    matriz[AX][d] = 1;
+
+                                    if (VX1 == 65 && VX2 == 1)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 - 3][AXL1 - 5] = 7;
+                                        matriz[AX1 - 3][C1 - 5] = 7;
+                                        matriz[AX1 - 3][D1 - 5] = 7;
+                                    }
+                                    else if (VX1 == 65 && VX2 == 3)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 - 3][AXL1 - 5] = 7;
+                                        matriz[AX1 - 3][C1 - 5] = 7;
+                                        matriz[AX1 - 3][D1 - 5] = 7;
+                                    }
+                                    else if (VX1 == 65 && VX2 == 5)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 - 3][AXL1 - 5] = 7;
+                                        matriz[AX1 - 3][C1 - 5] = 7;
+                                        matriz[AX1 - 3][D1 - 5] = 7;
+                                    }
+                                    else if (VX1 == 65 && VX2 == 7)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 - 3][AXL1 - 5] = 7;
+                                        matriz[AX1 - 3][C1 - 5] = 7;
+                                        matriz[AX1 - 3][D1 - 5] = 7;
+                                    }
+                                    else {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 - 3][AXL1 - 5] = 7;
+                                        matriz[AX1 - 3][C1 - 5] = 7;
+                                        matriz[AX1 - 3][D1 - 5] = 7;
+                                    }
+                                    break;
+                                }
+                            }
+                            else if (turno == 2 && matriz[AX][AXL] == 5 && matriz[AX1][AXL1] == 4 && matriz[AX1 - 3][AXL1 + 5] == 1 && AXL < AXL1)
+                            {
+                                comidasfJ2++;
+                                if (AXL1 - 5 < 0 || AXL1 + 5 > 43)
+                                {
+                                    Console::SetCursorPosition(136, 14);
+                                    cout << "   ";
+                                    Console::SetCursorPosition(136, 14);
+                                    Console::ForegroundColor = ConsoleColor::Red;
+                                    cout << "Casilla Invalida";
+                                    _sleep(1500);
+                                    Limpiar();
+                                    if (turno == 1 && puntajeJ1 > puntajeJ2) {
+                                        contadorfJ1--;
+                                    }
+                                    if (turno == 1 && puntajeJ2 > puntajeJ1)
+                                    {
+                                        contadorfJ2--;
+                                    }
+                                    if (turno == 2 && puntajeJ2 > puntajeJ1)
+                                    {
+                                        contadorfJ1--;
+                                    }
+                                    if (turno == 2 && puntajeJ1 > puntajeJ2)
+                                    {
+                                        contadorfJ2--;
+                                    }
+                                }
+
+                                else if (AXL1 - AXL == 5)
+                                {
+
+                                    int c = AXL + 1;
+                                    int d = AXL - 1;
+                                    matriz[AX][AXL] = 1;
+                                    matriz[AX][c] = 1;
+                                    matriz[AX][d] = 1;
+
+                                    if (VX1 == 65 && VX2 == 1)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+                                        matriz[AX1 - 3][AXL1 + 5] = 7;
+                                        matriz[AX1 - 3][C1 + 5] = 7;
+                                        matriz[AX1 - 3][D1 + 5] = 7;
+                                    }
+                                    else if (VX1 == 65 && VX2 == 3)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+                                        matriz[AX1 - 3][AXL1 + 5] = 7;
+                                        matriz[AX1 - 3][C1 + 5] = 7;
+                                        matriz[AX1 - 3][D1 + 5] = 7;
+                                    }
+                                    else if (VX1 == 65 && VX2 == 5)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+                                        matriz[AX1 - 3][AXL1 + 5] = 7;
+                                        matriz[AX1 - 3][C1 + 5] = 7;
+                                        matriz[AX1 - 3][D1 + 5] = 7;
+                                    }
+                                    else if (VX1 == 65 && VX2 == 7)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+                                        matriz[AX1 - 3][AXL1 + 5] = 7;
+                                        matriz[AX1 - 3][C1 + 5] = 7;
+                                        matriz[AX1 - 3][D1 + 5] = 7;
+                                    }
+                                    else {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+                                        matriz[AX1 - 3][AXL1 + 5] = 5;
+                                        matriz[AX1 - 3][C1 + 5] = 5;
+                                        matriz[AX1 - 3][D1 + 5] = 5;
+                                    }
+                                    break;
+                                }
+                                else if (AXL1 - AXL == -5)
+                                {
+                                    int c = AXL + 1;
+                                    int d = AXL - 1;
+                                    matriz[AX][AXL] = 1;
+                                    matriz[AX][c] = 1;
+                                    matriz[AX][d] = 1;
+
+                                    if (VX1 == 65 && VX2 == 1)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 - 3][AXL1 - 5] = 7;
+                                        matriz[AX1 - 3][C1 - 5] = 7;
+                                        matriz[AX1 - 3][D1 - 5] = 7;
+                                    }
+                                    else if (VX1 == 65 && VX2 == 3)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 - 3][AXL1 - 5] = 7;
+                                        matriz[AX1 - 3][C1 - 5] = 7;
+                                        matriz[AX1 - 3][D1 - 5] = 7;
+                                    }
+                                    else if (VX1 == 65 && VX2 == 5)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 - 3][AXL1 - 5] = 7;
+                                        matriz[AX1 - 3][C1 - 5] = 7;
+                                        matriz[AX1 - 3][D1 - 5] = 7;
+                                    }
+                                    else if (VX1 == 65 && VX2 == 7)
+                                    {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 - 3][AXL1 - 5] = 7;
+                                        matriz[AX1 - 3][C1 - 5] = 7;
+                                        matriz[AX1 - 3][D1 - 5] = 7;
+                                    }
+                                    else {
+                                        int C1 = AXL1 + 1;
+                                        int D1 = AXL1 - 1;
+                                        matriz[AX1][AXL1] = 1;
+                                        matriz[AX1][C1] = 1;
+                                        matriz[AX1][D1] = 1;
+
+
+                                        matriz[AX1 - 3][AXL1 - 5] = 5;
+                                        matriz[AX1 - 3][C1 - 5] = 5;
+                                        matriz[AX1 - 3][D1 - 5] = 5;
+                                    }
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                Console::SetCursorPosition(136, 14);
+                                cout << "   ";
+                                Console::SetCursorPosition(136, 14);
+                                Console::ForegroundColor = ConsoleColor::Red;
+                                cout << "Casilla Invalida";
+                                _sleep(1500);
+                                Limpiar();
+                                if (turno == 1 && puntajeJ1 > puntajeJ2) {
+                                    contadorfJ1--;
+                                }
+                                if (turno == 1 && puntajeJ2 > puntajeJ1)
+                                {
+                                    contadorfJ2--;
+                                }
+                                if (turno == 2 && puntajeJ2 > puntajeJ1)
+                                {
+                                    contadorfJ1--;
+                                }
+                                if (turno == 2 && puntajeJ1 > puntajeJ2)
+                                {
+                                    contadorfJ2--;
+                                }
+
+                            }
+                        }
+                        turno++;
+                    }
+                }
+                if (tecla == 50)//INSTRUCCIONES 2
+                {
+                    Console::Clear();
+                    instrucciones();
+                    break;
+                }
+                if (tecla == 51)//CREDITOS 3
+                {
+                    Console::Clear();
+                    creditos();
+                    break;
+                }
+                if (tecla == 52)//SALIR 4
+                {
+                    Console::Clear();
+                    salir();
+                    break;
+                }
+            }
+        }
+    }
+    system("pause>0");
+    return 0;
+}
